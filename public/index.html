@@ -1,0 +1,75 @@
+<html> 
+<head>
+<title>Reloj</title> 
+
+<link type="text/css" rel="stylesheet" href="index.css">
+<script language="JavaScript"> 
+function reloj(){ 
+   	tiempo = new Date() 
+   	
+   	hora = tiempo.getHours() 
+   	minuto = tiempo.getMinutes() 
+   	segundo = tiempo.getSeconds() 
+
+   	ahour = new String (hora) 
+   	if (ahour.length == 1) //si las horas están en unidades poner un 0 delante
+      	hora = "0" + hora 
+
+    aminute = new String (minuto) 
+   	if (aminute.length == 1) //si los minutos están en unidades poner un 0 delante
+      	minuto = "0" + minuto 
+
+   	
+
+   	asecond = new String (segundo) 
+   	if (asecond.length == 1) 
+      	segundo = "0" + segundo
+
+     thehour = hora  + ":" + minuto + ":" + segundo
+
+   	document.formato.reloj.value = thehour //document contiene el contenido de la página
+
+   	setTimeout("reloj()",1000) //evalua la función despues de 1 segundo
+} 
+</script> 
+
+
+
+<font color="00000" size="11px" face = "Bradley Hand, cursive" ><b>HORA REMOTA</b></font>
+<h1>
+<script language="JavaScript"> 
+var solicita;
+function relojServer(){
+        
+  
+    solicita = new XMLHttpRequest(); //solicitud al server
+    
+    solicita.open('HEAD',window.location.toString(),false);
+    solicita.send(''); 
+    return solicita.getResponseHeader("Date"); 
+
+    setTimeout("relojServer()",1000)
+}
+
+var time = relojServer();
+var date = new Date(time);
+document.write(date);
+</script>
+</h1>
+</head> 
+
+<!-- El formato del reloj Remoto  -->
+<body onload="reloj()" >
+<font color="000000" size="11px" face = "Bradley Hand, cursive"><b>HORA LOCAL</b></font>
+<form name="formato"> 
+<input type="text" name="reloj" size="50" style="background-color: #FFE4F5; 
+border: white;
+font-size : 30pt;
+color : #FF64BF; 
+font-family :fantasy; 
+text-align : center;
+font-weight: 1000;
+"onfocus="reloj()"> <!--onfocus llama a la función-->
+</form>
+</body> 
+</html> 
